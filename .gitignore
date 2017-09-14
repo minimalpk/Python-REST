@@ -1,0 +1,7 @@
+# Setting of IDE
+
+.vscode
+
+# Python cache
+
+*.pyc
