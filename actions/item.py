@@ -4,15 +4,17 @@ def GET(parameters, cursor):
     if 'id' not in parameters or not parameters['id'].isnumeric():
         return (400, None)
 
-    cursor.execute('SELECT id, name, number, month, year FROM items WHERE id = %s', [parameters['id']])
+    SQL = "SELECT id, name, number, month, year FROM items WHERE id = %s"
+
+    cursor.execute(SQL, [parameters['id']])
 
     result = cursor.fetchone()
 
     return (200, {
-        'name': result.name,
+        'name':   result.name,
         'number': result.number,
-        'month': result.month,
-        'year': result.year,
+        'month':  result.month,
+        'year':   result.year,
     })
 
 def POST(parameters, cursor):
@@ -28,7 +30,9 @@ def POST(parameters, cursor):
     if 'year' not in parameters or len(parameters['year']) != 2:
         return (400, None)
 
-    cursor.execute('INSERT INTO items (name, number, month, year) VALUES (%(name)s, %(number)s, %(month)s, %(year)s)', parameters)
+    SQL = "INSERT INTO items (name, number, month, year) VALUES (%(name)s, %(number)s, %(month)s, %(year)s)"
+
+    cursor.execute(SQL, parameters)
 
     return (201, None)
 
@@ -50,7 +54,9 @@ def DELETE(parameters, cursor):
     if 'id' not in parameters or not parameters['id'].isnumeric():
         return (400, None)
 
-    cursor.execute('DELETE FROM items WHERE id = %s RETURNING true', [parameters['id']])
+    SQL = "DELETE FROM items WHERE id = %s RETURNING true"
+
+    cursor.execute(SQL, [parameters['id']])
 
     if cursor.fetchone() is None:
         return (404, None)

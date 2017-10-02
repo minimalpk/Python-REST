@@ -7,10 +7,10 @@ def GET(parameters, cursor):
 
     while result:
         data.append({
-            'name': result.name,
+            'name':   result.name,
             'number': result.number,
-            'month': result.month,
-            'year': result.year,
+            'month':  result.month,
+            'year':   result.year,
         })
 
         result = cursor.fetchone()
