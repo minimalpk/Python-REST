@@ -1,6 +1,7 @@
 # Setting of IDE
 
 .vscode
+.idea
 
 # Python cache
 
