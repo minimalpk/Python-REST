@@ -2,12 +2,12 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 # Import middlewares modules
-from middlewares.database import connect as middlewareDatabaseConnect
+from middlewares.database import connect    as middlewareDatabaseConnect
 from middlewares.database import disconnect as middlewareDatabaseDisconnect
-from middlewares import request as middlewareRequest
-from middlewares import routes as middlewareRoutes
-from middlewares import access as middlewareAccess
-from middlewares import response as middlewareResponse
+from middlewares          import request    as middlewareRequest
+from middlewares          import routes     as middlewareRoutes
+from middlewares          import access     as middlewareAccess
+from middlewares          import response   as middlewareResponse
 
 HTTP_HOST = 'localhost'
 HTTP_PORT = 8080
@@ -62,7 +62,7 @@ def handler(method, http):
     result = execute(method, action, parameters, cursor)
 
     # Middleware response
-    middlewareResponse.run(http, result['code'], result['body'])
+    middlewareResponse.run(method, http, result['code'], result['body'])
 
     # Middleware database disconnect
     middlewareDatabaseDisconnect.run(database, cursor)
