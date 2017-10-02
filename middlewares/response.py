@@ -1,14 +1,32 @@
 # Import default modules
-import json
+from urllib.parse import urlparse
+
+import os, time, json
 
 # Run - Execute package for prepare response
-def run(http, code, body):
+def run(method, http, code, body):
     http.send_response(code)
 
     http.send_header('Content-type','application/json')
     http.end_headers()
 
-    if body is None:
-        return
+    path = 'logs/' + time.strftime('%Y_%m_%d')
 
-    http.wfile.write(bytes(json.dumps(body), "utf8"))
+    if body is not None:
+        http.wfile.write(bytes(json.dumps(body), "utf8"))
+
+    # Logs
+
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    file = open(path + '/responses.log', 'a')
+
+    data = time.strftime('%H:%M:%S') + ' ' + method + ' ' + urlparse(http.path).path
+
+    if body is not None:
+        data = data + ' ' + json.dumps(body)
+
+    file.write(data + '\n')
+
+    file.close()

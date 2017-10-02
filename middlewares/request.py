@@ -1,7 +1,7 @@
 # Import default modules
 from urllib.parse import urlparse, parse_qs
 
-import json
+import os, time, json
 
 # Run - Execute module for prepare request
 def run(method, http):
@@ -28,5 +28,25 @@ def run(method, http):
         body = http.rfile.read(length)
 
         parameters = json.loads(body)
+
+    path = 'logs/' + time.strftime('%Y_%m_%d')
+
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    # Logs
+
+    file = open(path + '/requests.log', 'a')
+
+    data = time.strftime('%H:%M:%S') + ' ' + method + ' ' + urlparse(http.path).path
+
+    if parameters:
+        data = data + ' ' + json.dumps(parameters)
+
+    file.write(data + '\n')
+
+    file.close()
+
+    # Result
 
     return parameters
