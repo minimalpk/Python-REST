@@ -14,6 +14,7 @@ def GET(parameters, cursor):
         return (404, None)
 
     return (200, {
+        'id':     result.id,
         'name':   result.name,
         'number': result.number,
         'month':  result.month,
