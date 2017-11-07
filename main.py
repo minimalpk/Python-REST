@@ -14,6 +14,9 @@ HTTP_PORT = 8080
 
 # Response
 def response(http, database, cursor):
+    http.send_header('Access-Control-Allow-Origin','*')
+    http.send_header('Access-Control-Allow-Headers', 'Token, Content-Type')
+    http.send_header('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE')
     http.end_headers()
 
     if database is not None and cursor is not None:
@@ -83,6 +86,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
         self.send_response(204)
+        self.send_header('Access-Control-Allow-Origin','*')
+        self.send_header('Access-Control-Allow-Headers', 'Token, Content-Type')
+        self.send_header('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE')
         self.end_headers()
 
 # Run server
