@@ -7,6 +7,7 @@ def GET(parameters, cursor):
 
     while result:
         data.append({
+            'id':     result.id,
             'name':   result.name,
             'number': result.number,
             'month':  result.month,
