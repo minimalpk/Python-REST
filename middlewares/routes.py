@@ -3,6 +3,15 @@ from urllib.parse import urlparse
 
 # Actions list
 actions = {
+    '/registration': {
+        'module': 'registration',
+        'methods': ['POST'],
+    },
+    '/login': {
+        'module': 'login',
+        'methods': ['POST'],
+    },
+
     '/items': {
         'module': 'items',
         'methods': ['GET'],
