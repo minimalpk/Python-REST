@@ -8,6 +8,9 @@ def run(method, http, code, body):
     http.send_response(code)
 
     http.send_header('Content-type','application/json')
+    http.send_header('Access-Control-Allow-Origin','*')
+    http.send_header('Access-Control-Allow-Headers', 'Token, Content-Type')
+    http.send_header('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE')
     http.end_headers()
 
     path = 'logs/' + time.strftime('%Y_%m_%d')
