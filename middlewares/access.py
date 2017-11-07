@@ -21,7 +21,7 @@ def run(http, method, cursor):
 
             return False
 
-        cursor.execute('SELECT true FROM sessions WHERE token = %s', [http.headers.get('Token')])
+        cursor.execute('SELECT true FROM sessions WHERE token = %s AND enabled', [http.headers.get('Token')])
 
         if cursor.fetchone() is None:
 
