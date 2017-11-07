@@ -1,5 +1,16 @@
+CREATE TABLE "public"."users" (
+    "id"       SERIAL PRIMARY KEY,
+    "name"     VARCHAR(100) NOT NULL,
+    "email"    VARCHAR(100) NOT NULL UNIQUE,
+    "password" VARCHAR(40) NOT NULL,
+    "created"  TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    "updated"  TIMESTAMP WITH TIME ZONE,
+    "enabled"  BOOLEAN DEFAULT TRUE NOT NULL
+);
+
 CREATE TABLE "public"."sessions" (
     "id"      SERIAL PRIMARY KEY,
+    "user_id" INTEGER REFERENCES "users"("id") ON UPDATE CASCADE ON DELETE CASCADE,
     "token"   VARCHAR(40) NOT NULL,
     "created" TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
     "enabled" BOOLEAN DEFAULT TRUE NOT NULL
