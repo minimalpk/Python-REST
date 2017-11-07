@@ -10,6 +10,9 @@ def GET(parameters, cursor):
 
     result = cursor.fetchone()
 
+    if result is None:
+        return (404, None)
+
     return (200, {
         'name':   result.name,
         'number': result.number,
