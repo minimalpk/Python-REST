@@ -37,13 +37,19 @@ def POST(parameters, cursor):
     return (201, None)
 
 def PUT(parameters, cursor):
-    if 'id' not in parameters or not str(parameters['id']).isnumeric():
-        return (400, None)
-
     if 'name' not in parameters or len(parameters['name']) == 0:
         return (400, None)
 
-    cursor.execute('UPDATE items SET name = %(name)s WHERE id = %(id)s RETURNING true', parameters)
+    if 'number' not in parameters or len(parameters['number']) != 16:
+        return (400, None)
+
+    if 'month' not in parameters or len(parameters['month']) != 2:
+        return (400, None)
+
+    if 'year' not in parameters or len(parameters['year']) != 2:
+        return (400, None)
+
+    cursor.execute('UPDATE items SET name = %(name)s, number = %(number)s, month = %(month)s, year = %(year)s WHERE id = %(id)s RETURNING true', parameters)
 
     if cursor.fetchone() is None:
         return (404, None)
