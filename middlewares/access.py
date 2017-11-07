@@ -17,7 +17,7 @@ def run(http, method, cursor):
 
     if path in actions and method in actions[path] and actions[path]:
         if not http.headers.get('Token'):
-            http.send_response(403)
+            http.send_response(401)
 
             return False
 
@@ -25,7 +25,7 @@ def run(http, method, cursor):
 
         if cursor.fetchone() is None:
 
-            http.send_response(403)
+            http.send_response(401)
             return False
 
     return True
