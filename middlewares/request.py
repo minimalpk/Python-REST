@@ -27,14 +27,14 @@ def run(method, http):
 
         body = http.rfile.read(length)
 
-        parameters = json.loads(body)
+        parameters = json.loads(str(body,'utf-8'))
+
+    # Logs
 
     path = 'logs/' + time.strftime('%Y_%m_%d')
 
     if not os.path.exists(path):
         os.makedirs(path)
-
-    # Logs
 
     file = open(path + '/requests.log', 'a')
 

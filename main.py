@@ -9,7 +9,7 @@ from middlewares          import routes     as middlewareRoutes
 from middlewares          import access     as middlewareAccess
 from middlewares          import response   as middlewareResponse
 
-HTTP_HOST = 'localhost'
+HTTP_HOST = '0.0.0.0'
 HTTP_PORT = 8080
 
 # Response
@@ -61,7 +61,6 @@ def handler(method, http):
         return
 
     # Execute
-
     result = execute(method, action, parameters, cursor)
 
     # Middleware response
